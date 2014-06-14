@@ -5,3 +5,13 @@ https://help.github.com/articles/create-a-repo
 https://help.github.com/articles/fork-a-repo
 
 http://www.gitguys.com/topics/skip-the-intro/
+
+helpful commands:
+
+sudo touch (filename)
+
+git add (filename)
+
+git commit -m 'Commit message'
+
+git push origin master <-- look into this one based on repository
