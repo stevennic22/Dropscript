@@ -17,10 +17,13 @@ file_meta = client.metadata('/script')
 #Turns dict into a string, searching for the last modified string
 file_meta = file_meta [u'modified']
 
-file_metadata = ''.join(file_meta)
+file_meta = ''.join(file_meta)
+
+#Set the home file path, because declaring it inline breaks it
+file_check_file = os.path.expanduser('~/file_check')
 
 #Open the file with the last checked modified date, close, then join it as a string
-file_check = open('~/file_check', 'rb')
+file_check = open(file_check_file, 'rb')
 
 file_holster = file_check.readlines()
 
@@ -29,7 +32,7 @@ file_check.close()
 file_holsters = ''.join(file_holster)
 
 #Check if files are the same. If they are, take command from file as string. If not, end script.
-if file_metadata.find(file_holsters) != -1:
+if file_meta.find(file_holsters) != -1:
 	
 	exit(0)
 
@@ -43,9 +46,9 @@ else:
 #	print file_down
 
 #Open file check and update the modified time of file
-	file_check = open('~/file_check', 'wb')
+	file_check = open(file_check_file, 'wb')
 	
-	file_check.write(file_metadata)
+	file_check.write(file_meta)
 	
 	file_check.close()
 
