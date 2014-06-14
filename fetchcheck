@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+
+#import Dropbox and whatever other modules that are needed. Comment modules pulled.
+
+import dropbox, subprocess, string
+
+# Set your app key, secret, and access_token
+
+app_key = 'yourappkey'
+app_secret = 'yourappsecret'
+access_token = 'youraccesstoken'
+
+#Sets all the above credentials into an acceptable pass for Dropbox
+
+client = dropbox.client.DropboxClient(access_token)
+
+
+#Requests the metadata for the file to be checked into a dict
+
+file_meta = client.metadata('/script')
+
+#Turns dict into a string, searching for the last modified string
+
+file_meta = file_meta [u'modified']
+
+file_metadata = ''.join(file_meta)
+
+#Open the file with the last checked modified date, close, then join it as a string
+
+file_check = open('~/file_check', 'rb')
+
+file_holster = file_check.readlines()
+
+file_check.close()
+
+file_holsters = ''.join(file_holster)
+
+#Check if files are the same. If they are, take command from file as string. If not, end script.
+
+if file_metadata.find(file_holsters) != -1:
+	
+	exit(0)
+
+else:
+
+#Take file from online and write to string
+
+	with client.get_file('/script') as f:
+	
+		file_down = f.read()
+
+#	print file_down
+
+#Open file check and update the modified time of file
+	
+	file_check = open('~/file_check', 'wb')
+	
+	file_check.write(file_metadata)
+	
+	file_check.close()
+
+#Turn command from file into a command, then execute with error catching
+
+command = file_down
+
+process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+
+output, error = process.communicate()
+
+#Print error if there is one. (Necessary?)
+
+if error.__len__() > 0:
+	print(error)
