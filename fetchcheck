@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #import Dropbox and whatever other modules that are needed. Comment modules pulled.
-import dropbox, subprocess, string
+import dropbox, subprocess, string, os
 
 # Set your app key, secret, and access_token
 app_key = 'yourappkey'
