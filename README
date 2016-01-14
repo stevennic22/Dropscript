@@ -1,6 +1,8 @@
 This script checks a file on dropbox, and if it has been modified, the contents are read and executed.
 
+#This probably no longer works. Has not been tested in a long time.
 Tested only in xubuntu, should work in most debian builds.
+
 
 Requires dropbox python sdk and a developer app.
 
